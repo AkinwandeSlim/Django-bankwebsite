@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<!-- Home Section -->
+<section class="home" id="home">
+    <div class="home-img-box">
+        <img src="{% static 'bankapp/img/image-mockups.png'%}" alt="Image For Easybank Banner" class="home-img" ,
+            width="100%">
+    </div>
+    <div class="wrapper">
+        <h1 class="home-title">Welcome to the Largest E-banking System</h1>
+
+        <p class="home-text">
+            Take your financial life online. Your Standard Vault Remit Bank account will be a one-stop-shop
+            for spending, saving, budgeting, investing, and much more.
+        </p>
+<!-- 
+        <button class="btn-primary">Log in</button>
+        <button class="btn-primary">Sign Up</button> -->
+
+        <a href="{% url 'login' %}" class="btn-primary">Login</a>
+        <a href="{% url 'signup' %}" class="btn-primary">Sign Up</a>
+
+    </div>
+    </section>
+
+
+
+
+
+
+
+{% endblock content %}

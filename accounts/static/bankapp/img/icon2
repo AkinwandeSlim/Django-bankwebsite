@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<svg width="139" height="20" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" style="vector-effect: non-scaling-stroke;">
+ <defs>
+  <linearGradient id="a" style="vector-effect: non-scaling-stroke;" x1="72.195%" x2="17.503%" y1="0%" y2="100%">
+   <stop offset="0%" stop-color="#33D35E" style="vector-effect: non-scaling-stroke;"/>
+   <stop offset="100%" stop-color="#2AB6D9" style="vector-effect: non-scaling-stroke;"/>
+  </linearGradient>
+ </defs>
+ <g class="layer">
+  <title>Layer 1</title>
+  <g fill="none" fill-rule="evenodd" id="svg_1" style="vector-effect: non-scaling-stroke;">
+   <g fill="url(#a)" id="svg_3" style="vector-effect: non-scaling-stroke;">
+    <path d="m10.802,0l-10.802,19.704l5.986,0l10.803,-19.704l-5.987,0z" id="svg_4" style="vector-effect: non-scaling-stroke;"/>
+    <path d="m18.171,0l-10.803,19.704l5.986,0l10.803,-19.704l-5.986,0z" id="svg_5" opacity="0.5" style="vector-effect: non-scaling-stroke;"/>
+    <path d="m25.539,0l-10.802,19.704l5.986,0l10.802,-19.704l-5.986,0z" id="svg_6" opacity="0.15" style="vector-effect: non-scaling-stroke;"/>
+   </g>
+  </g>
+  <text fill="#000000" font-family="Fantasy" font-size="18" id="svg_12" stroke-dasharray="5,5" stroke-linecap="null" stroke-linejoin="round" stroke-width="0" text-anchor="middle" x="87.99998" xml:space="preserve" y="-68.500006"/>
+  <g id="svg_18"/>
+ </g>
+</svg>

@@ -1,0 +1,390 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block extra_links %}
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+
+<!--external css-->
+<link href="{%static 'bankapp/assets/font-awesome/css/font-awesome.css'%}" rel="stylesheet" />
+
+<!--external css-->
+<link href="{%static 'bankapp/styles3.css'%}" rel="stylesheet" />
+
+{% endblock extra_links %}
+
+
+{% block content %}
+  <div class="main-content">
+
+    <!-- Header -->
+    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(https://raw.githubusercontent.com/creativetimofficial/argon-dashboard/gh-pages/assets-old/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
+      <!-- Mask -->
+      <span class="mask bg-gradient-default opacity-8"></span>
+      <!-- Header container -->
+      <div class="container-fluid d-flex align-items-center">
+        <div class="prow">
+          <div class="col-lg-7 col-md-10 col-txt">
+            <h1 class="display-2 text-white">Hello {{ user.username}}</h1>
+            <p class="text-white mt-0 mb-5">This is your profile page. Updates Your Photo and Personal Details.</p>
+            <a href="javascript:void(0);" class="btn btn-info">Edit profile</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page content -->
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+    <div class="container-fluid mt--7" id="profiles">
+      <div class="prow cardset">
+        <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+          <div class="card card-profile shadow">
+            <div class="prow justify-content-center">
+              <div class="col-lg-3 order-lg-2">
+
+
+                <div class="card-profile-image">
+                  <img src="{{ user.profile.image.url }}" class="rounded-circle" alt="img" id="blah">
+                  <div class="profileupload">
+                      <input type="file" id="imgInp" name="image" style="display: none;">
+                      <a href="javascript:void(0);" onclick="document.getElementById('imgInp').click();">
+                          <img src="{% static 'bankapp/img/edit-set.svg' %}" alt="img" width="38px" height="38px">
+                      </a>
+                  </div>
+              </div>
+
+                
+
+              </div>
+            </div>
+            <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+              <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-sm btn-info mr-4">Save</button>
+                <a href="javascript:void(0);" class="btn btn-sm btn-default float-right" >Cancel</a>
+              </div>
+            </div>
+
+
+            <div class="card-body pt-0 pt-md-4 card-body-text">
+              <div class="prow">
+                <div class="col">
+                  <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+                    <div>
+                      <span class="heading">Account ID</span>
+                      <span class="description">{{ user.account_id }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr class="my-4">
+              <div class="text-center">
+                <h3>
+                    Account Balance<span class="font-weight-light">{{ account_balance }}</span>
+                </h3>
+                <!-- <a href="#">Show more</a> -->
+
+                <div class="d-flex justify-content-between">
+                  <button type="button" class="btn btn-sm btn-info mr-4 float-right" data-toggle="modal" data-target="#depositModal">Deposit</button>
+                  <button type="button" class="btn btn-sm btn-default mr-4 float-right" data-toggle="modal" data-target="#withdrawModal">Withdraw</button>
+                  <!-- <a href="javascript:void(0);" class="btn btn-sm btn-default float-right">Withdrawal</a> -->
+                </div> 
+              </div>
+
+            </div>
+
+
+
+
+          </div>
+        </div>
+        <div class="col-xl-8 order-xl-1">
+          <div class="card bg-secondary shadow">
+            <div class="card-header bg-white border-0">
+              <div class="prow align-items-center">
+                <div class="col-8">
+                  <h3 class="mb-0">My account</h3>
+                </div>
+
+              </div>
+            </div>
+            <div class="card-body">
+
+                <h6 class="heading-small text-muted mb-4">User information</h6>
+                <div class="pl-lg-4">
+                  <div class="prow">
+                    <div class="col-lg-6">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-username">Username</label>
+                        <!-- <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="{{u_form.username}}"> -->
+                        {{ u_form.username }}
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">Email address</label>
+                        <!-- <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="youremail@example.com" > -->
+                        {{ u_form.email }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="prow">
+                    <div class="col-lg-6">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-first-name">First name</label>
+                        <!-- <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="First name" value="{{user.firstname}}"> -->
+                        {{ u_form.first_name }}
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-last-name">Last name</label>
+                        <!-- <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="Last name" value="{{user.lastname}}"> -->
+                        {{ u_form.last_name }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-4">
+                <!-- Address -->
+                <h6 class="heading-small text-muted mb-4">Contact information</h6>
+                <div class="pl-lg-4">
+                  <div class="prow">
+                    <div class="col-md-12">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-address">Address</label>
+                        <!-- <input id="input-address" class="form-control form-control-alternative" placeholder="Home Address"  type="text"> -->
+                        {{ p_form.address }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="prow">
+
+
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                          <label class="form-control-label" for="input-phone">Phone No</label>
+                          <!-- <input type="number" id="input-phone" class="form-control form-control-alternative" placeholder="+1234567890"> -->
+                          {{ p_form.phone }}
+                        </div>
+                      </div>
+
+
+                    <div class="col-lg-4">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-city">City</label>
+                        <!-- <input type="text" id="input-city" class="form-control form-control-alternative" placeholder="City" > -->
+                        {{ p_form.city }}
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-country">Country</label>
+                        <!-- <input type="text" id="input-country" class="form-control form-control-alternative" placeholder="Country" > -->
+                     
+                        {{ p_form.country }}
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-country">Postal code</label>
+                        <!-- <input type="number" id="input-postal-code" class="form-control form-control-alternative" placeholder="Postal code"> -->
+                        {{ p_form.postal_code }}
+                      </div>
+                    </div>
+
+
+
+
+                  </div>
+                </div>
+
+                <div class="frest">
+
+                    <button class="btn btn-info float-right" type="submit">Submit</button>
+                    <a href="javascript:void(0)" class="btn btn-default float-right">Cancel</a>
+
+                </div>
+
+
+
+              </form>
+  </div>
+
+
+    <!-- Deposit Modal -->
+    <!-- <div id="depositModal" class="modal">
+        <div class="modal-content">
+        <span class="close" id="closeDeposit">&times;</span>
+        <h2>Deposit</h2>
+        <input type="number" id="depositAmount" placeholder="Enter amount">
+        <button id="confirmDeposit">Confirm</button>
+        </div>
+    </div> -->
+
+
+
+  <!-- Deposit Modal -->
+  <div class="modal fade" id="depositModal" tabindex="-1" role="dialog" aria-labelledby="depositModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form id="depositForm" method="POST" action="{% url 'deposit' %}">
+          {% csrf_token %}
+          <div class="modal-header">
+            <h5 class="modal-title" id="depositModalLabel">Deposit Amount</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="amount">Amount</label>
+              <input type="number" class="form-control" id="amount" name="amount" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-default">Deposit</button>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+    <!-- Withdraw Modal -->
+  <!-- Deposit Modal -->
+  <div class="modal fade" id="withdrawModal" tabindex="-1" role="dialog" aria-labelledby="withdrawModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form id="withdrawForm" method="POST" action="{% url 'withdraw' %}">
+          {% csrf_token %}
+          <div class="modal-header">
+            <h5 class="modal-title" id="withdrawModalLabel">Withdraw Amount</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="amount">Amount</label>
+              <input type="number" class="form-control" id="amount" name="amount" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-default">Withdraw</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+
+
+{% endblock content %}
+
+
+
+{% block extra_js %}
+
+<script src="{% static 'bankapp/assets3/plugins/select2/js/select2.min.js'%}"></script>
+<script src="{% static 'bankapp/assets3/plugins/sweetalert/sweetalert2.all.min.js'%}"></script>
+<script src="{% static 'bankapp/assets3/plugins/sweetalert/sweetalerts.min.js'%}"></script>
+<script src="{% static 'bankapp/assets3/js/script.js'%}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    document.getElementById('imgInp').onchange = function (event) {
+        const [file] = imgInp.files;
+        if (file) {
+            blah.src = URL.createObjectURL(file);
+        }
+    };
+
+
+
+
+    document.getElementById('imgInp').onchange = function(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+            var output = document.getElementById('blah');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+
+    };
+
+
+
+</script>
+
+
+
+
+<script>
+
+  document.getElementById('depositForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    let formData = new FormData(this);
+    fetch("{% url 'deposit' %}", {
+      method: 'POST',
+      headers: {
+        'X-CSRFToken': '{{ csrf_token }}'
+      },
+      body: formData,
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        document.querySelector('.font-weight-light').innerText = `$${data.new_balance}`;
+        $('#depositModal').modal('hide');
+      } else {
+        alert('Error: ' + data.error);
+      }
+    });
+  });
+
+  
+
+
+
+  document.getElementById('withdrawForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    let formData = new FormData(this);
+    fetch("{% url 'withdraw' %}", {
+      method: 'POST',
+      headers: {
+        'X-CSRFToken': '{{ csrf_token }}'
+      },
+      body: formData,
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        document.querySelector('.font-weight-light').innerText = `$${data.new_balance}`;
+        $('#withdrawlModal').modal('hide');
+      } else {
+        alert('Error: ' + data.error);
+      }
+    });
+  });
+
+
+</script>
+
+
+
+{% endblock extra_js %}
+
+
+

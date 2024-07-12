@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+
+{% block extra_style %}
+<style>
+.containers {
+    align-items: center;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+h2, h3 {
+    margin-bottom: 20px;
+}
+
+
+.name-section, .location-section {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+}
+select, input, .account-type-section, .purpose-of-loan-section {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.account-type-section, .purpose-of-loan-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.account-type-section span, .purpose-of-loan-section span {
+    margin-bottom: 5px;
+}
+
+.account-type-section label, .purpose-of-loan-section label {
+    margin-right: 10px;
+}
+
+.location-section input {
+    width: calc(33.3% - 10px);
+    flex: 1;
+}
+
+.btns {
+
+	background: linear-gradient(90deg, hsl(136, 65%, 51%), hsl(192,70%,51%));
+	color:var(--white);
+	padding:15px 45px;
+	border-radius: 10px;
+	font-size: 15px ;
+	font-weight: 700;
+	display: inline-block;
+	transition: 0.25s ease;
+	margin: auto;
+
+    align-self: center;
+
+
+}
+
+button .btns:hover {
+    opacity:0.7 ;
+}
+
+</style>
+
+{% endblock extra_style %}
+
+{% block content %}
+<!-- Home Section -->
+
+<section class="service" id="Contact">
+    <h2 class="section-title">Loan Applications</h2>
+
+    <div class="container">
+        <form id="loanApplicationForm">
+            <div class="name-section">
+                <select id="title" required>
+                    <option value="" disabled selected>Select Title</option>
+                    <option value="Mr.">Mr.</option>
+                    <option value="Mrs.">Mrs.</option>
+                    <option value="Ms.">Ms.</option>
+                </select>
+                <input type="text" id="firstName" placeholder="First Name" required>
+                <input type="text" id="lastName" placeholder="Last Name" required>
+            </div>
+            <input type="date" id="dob" placeholder="Date of Birth" required>
+            <input type="tel" id="phoneNumber" placeholder="Phone Number" required>
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <select id="idType" required>
+                <option value="" disabled selected>Select ID Type</option>
+                <option value="Passport">Passport</option>
+                <option value="Driver License">Driver License</option>
+                <option value="Voter ID">Voter ID</option>
+            </select>
+            <input type="text" id="address" placeholder="Address" required>
+            <div class="location-section">
+                <input type="text" id="city" placeholder="City" required>
+                <input type="text" id="state" placeholder="State/Province" required>
+                <input type="text" id="postalCode" placeholder="Postal/Zip Code" required>
+            </div>
+            <h3>Financial Preferences</h3>
+            <input type="text" id="bankName" placeholder="Bank Name" required>
+            <input type="text" id="accountNumber" placeholder="Account Number" required>
+            <div class="account-type-section">
+                <span>Account Type:</span>
+                <label>
+                    <input type="radio" name="accountType" value="Savings" required> Savings
+                </label>
+                <label>
+                    <input type="radio" name="accountType" value="Current" required> Current
+                </label>
+            </div>
+            <div class="purpose-of-loan-section">
+                <span>Purpose of Loan:</span>
+                <label>
+                    <input type="radio" name="loanPurpose" value="Purchase of Vehicle" required> Purchase of Vehicle
+                </label>
+                <label>
+                    <input type="radio" name="loanPurpose" value="Purchase of office equipment" required> Purchase of office equipment
+                </label>
+                <label>
+                    <input type="radio" name="loanPurpose" value="Travel" required> Travel
+                </label>
+                <label>
+                    <input type="radio" name="loanPurpose" value="Take over of existing personal loan" required> Take over of existing personal loan
+                </label>
+            </div>
+            <input type="number" id="loanAmount" placeholder="Loan Amount" required>
+            <input type="number" id="loanTerm" placeholder="Loan Term (months)" required>
+            <button type="submit" class="btns">Apply</button>
+        </form>
+    </div>
+
+</section>
+
+
+{% endblock content %}
+
+
+{% block extra_js %}
+
+<script src="{% static 'bankapp/loan.js"></script>
+
+
+{% endblock extra_js %}
+
+
+

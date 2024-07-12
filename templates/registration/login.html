@@ -1,0 +1,173 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Dashboard">
+    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+
+    <title>SVRB- LOGIN Page</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{%static 'bankapp/assets/css/bootstrap.css'%}" rel="stylesheet">
+    <!--external css-->
+    <link href="{%static 'bankapp/assets/font-awesome/css/font-awesome.css'%}" rel="stylesheet" />
+        
+    <!-- Custom styles for this template -->
+    <link href="{%static 'bankapp/assets/css/style.css'%}" rel="stylesheet">
+    <link href="{%static 'bankapp/assets/css/style-responsive.css'%}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+
+	
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	
+	<style>
+		.login-header {
+	display: flex;
+	align-items: center;
+}
+
+	.login-userheading h3 {
+	margin: 10px; /* Remove default margin from the heading */
+	color:hsl(233,26%,24%)
+	}
+
+	</style>
+
+  </head>
+
+  <body>
+         
+
+
+	  <div id="login-page">
+	  	<div class="container">
+	  	
+		    <form class="form-login" id="login-form" method="POST" action="/login/">
+				{% csrf_token %}
+				<div class="login-header">
+					<a class="site-logo site-title login-logo" href="/">
+						<img src="{%static 'bankapp/img/nlogo6r22.png'%}" alt="logo" class="footer-brand" width="139" height="20">
+					</a> 
+					<div class="login-userheading form-login-heading">
+						<h4>LOGIN now</h4>
+					</div>
+					
+				  </div>
+
+		        <div class="login-wrap">
+		
+					<input type="text" id="username_or_account_id" name="username_or_account_id" class="form-control"  placeholder="Username/Account ID" autofocus required><br>
+					<input type="password" id="password" name="password" class="form-control"  placeholder="Password"  required><br>
+
+					<span class="pull-right">
+						<a data-toggle="modal" href="login.html#myModal"> Forgot Password?</a>
+	
+					</span>
+
+					<button class="btn btn-theme btn-block" href="#" type="submit"><i class="fa fa-lock"></i> LOGIN</button>
+		            <!-- <hr> -->
+		            <div class="login-social-link centered">
+						<p>or you can sign in via your social network</p>
+							<button class="btn btn-facebook" type="submit"><i class="fa fa-facebook"></i> Facebook</button>
+							<button class="btn btn-twitter" type="submit"><i class="fa fa-twitter"></i> Twitter</button>
+						</div>
+						<div class="registration">
+							Don't have an account yet?<br/>
+							<a class="" href="{%url 'signup'%}">
+								Create an account
+							</a>
+						</div>
+		        </div>
+			</form>
+		
+
+
+		          <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h4 class="modal-title">Forgot Password ?</h4>
+							</div>
+							<div class="modal-body">
+								<p>Enter your e-mail address below to reset your password.</p>
+								<input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
+	  
+							</div>
+							<div class="modal-footer">
+								<button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+								<button class="btn btn-theme" type="button">Submit</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+
+
+
+
+
+
+
+		      </form>	  	
+	  	
+	  	</div>
+	  </div>
+
+
+
+
+     <!-- js placed at the end of the document so the pages load faster -->
+     <script src="{%static 'bankapp/assets/js/jquery.js'%}"></script>
+     <script src="{%static 'bankapp/assets/js/bootstrap.min.js'%}"></script>
+ 
+     <!--BACKSTRETCH-->
+     <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
+     <script type="text/javascript" src="{%static 'bankapp/assets/js/jquery.backstretch.min.js'%}"></script>
+     <script>
+         $.backstretch("{%static 'bankapp/img/bg-intro-mobile.svg'%}", {speed: 500});
+     </script>
+ 
+	<script>
+	$(document).ready(function() {
+		$('#login-form').submit(function(event) {
+			event.preventDefault();
+			var username = $('#username_or_account_id').val();
+			var password = $('#password').val();
+			$.ajax({
+				type: 'POST',
+				url: '{% url "login" %}',
+				data: {
+					'username': username,
+					'password': password,
+					'csrfmiddlewaretoken': '{{ csrf_token }}'
+				},
+				success: function(data, status, xhr) {
+					if (xhr.status === 302) {
+						// Redirect the user to the home page
+						window.location.href = xhr.getResponseHeader('Location');
+					} else {
+						// Handle any other success cases
+						alert('Login successful!');
+						window.location.href = '{% url "home" %}';
+					}
+				},
+				error: function(xhr, status, error) {
+					alert('An error occurred. Please try again later.');
+				}
+			});
+		});
+	});
+
+	</script>
+
+ 
+   </body>
+ </html>
+ 
+
