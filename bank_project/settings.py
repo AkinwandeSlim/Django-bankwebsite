@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
-
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -31,7 +31,7 @@ SECRET_KEY = "django-insecure-4q=xy_wyon)%z_mchs_iq7j8_4w3h4ka0auy0x+0&_pm)m3+lw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "Alexdata.pythonanywhere.com"]
 
 
 # Application definition
@@ -86,6 +86,14 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+
+
+# # Replace it with your DATABASES.
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default="sqlite:///" + os.path.join(BASE_DIR, "db.sqlite3")
+#     )
+# }
 
 
 # Password validation
