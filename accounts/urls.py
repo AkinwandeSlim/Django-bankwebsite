@@ -8,8 +8,8 @@ from .views import *
 urlpatterns = [
     # path('register/', signup_view, name="register"),
     path('signup/', signup_view, name="signup"),
-    path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
-    path('logout/', logout_view, name='login'),
+    path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
     path('verify-otp/', verify_otp, name='verify_otp'),
     path('profile/', profile, name='profile'),
     path('deposit/', deposit, name='deposit'),
