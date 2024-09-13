@@ -15,7 +15,7 @@ import smtplib
 from email.mime.text import MIMEText
 from django.shortcuts import render
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt,csrf_protect
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
@@ -73,10 +73,14 @@ def verify_otp(request):
                 user = get_user_model().objects.create_user(**user_data)
                 # Usage
                 user.save()
+
                 del request.session['user_data']
-                del request.session['otp']
+                del request.session['otp'] 
                 # Send account ID to user email
                 subject='SVRB Account Info'
+                message=f'Welcome to Standard Vault Remit Bank {user_data["username"] } !, Your account ID is {user.account_id}'
+
+           
                 send_otp_email(user_data['email'], f'Your account ID is {user.account_id}',subject)
                 # return JsonResponse({'success': True})
                                 # Redirect to the login page
@@ -108,20 +112,35 @@ def verify_otp(request):
 
 
 
+# @csrf_exempt
+# def login_view(request):
+#     if request.method == 'POST':
+#         username = request.POST['username']
+#         password = request.POST['password']
+#         user = authenticate(request, username=username, password=password)
+#         if user is not None:
+#             login(request, user)
+#             return JsonResponse({'success': True})
+#         else:
+#             return JsonResponse({'success': False, 'error': 'Invalid username or password'})
+#     else:
+#         return render(request, 'registration.html')
+
 
 @csrf_exempt
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return JsonResponse({'success': True})
+            return JsonResponse({'success': True,'msg': 'Login successfully'})
         else:
             return JsonResponse({'success': False, 'error': 'Invalid username or password'})
     else:
-        return render(request, 'registration.html')
+        return render(request, 'registration/login.html')
+
 
 # @csrf_exempt
 # def login_view(request):

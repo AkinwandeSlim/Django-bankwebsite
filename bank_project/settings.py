@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
-
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -31,7 +31,11 @@ SECRET_KEY = "django-insecure-4q=xy_wyon)%z_mchs_iq7j8_4w3h4ka0auy0x+0&_pm)m3+lw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+<<<<<<< HEAD
 ALLOWED_HOSTS = ['*']
+=======
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "Alexdata.pythonanywhere.com"]
+>>>>>>> 7ee3f9e58fb2991b8393f1d18ac50d8490903438
 
 
 # Application definition
@@ -88,6 +92,14 @@ DATABASES = {
 }
 
 
+# # Replace it with your DATABASES.
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default="sqlite:///" + os.path.join(BASE_DIR, "db.sqlite3")
+#     )
+# }
+
+
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -123,7 +135,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = "static/"
-
+STATICFILES_DIR = os.path.join(BASE_DIR ,'static')
+STATIC_ROOT = os.path.join(BASE_DIR ,'staticfiles_build','static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -149,8 +162,13 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+<<<<<<< HEAD
 EMAIL_HOST_USER = 'akinwandealex95@gmail.com'
 EMAIL_HOST_PASSWORD = 'oijeqagvfaealaqx'
+=======
+EMAIL_HOST_USER = 'svrb.banks24@gmail.com'
+EMAIL_HOST_PASSWORD = 'jlowvftdbrzwxnxr'
+>>>>>>> 7ee3f9e58fb2991b8393f1d18ac50d8490903438
 
 USE_TZ=True
 

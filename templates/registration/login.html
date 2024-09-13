@@ -40,13 +40,13 @@
 
   </head>
 
-  <body>
+<body>
          
 
 
 	  <div id="login-page">
 	  	<div class="container">
-	  	
+
 		    <form class="form-login" id="login-form" method="POST" action="/login/">
 				{% csrf_token %}
 				<div class="login-header">
@@ -71,8 +71,8 @@
 
 					<button class="btn btn-theme btn-block" href="#" type="submit"><i class="fa fa-lock"></i> LOGIN</button>
 		            <!-- <hr> -->
-		            <div class="login-social-link centered">
-						<p>or you can sign in via your social network</p>
+		            	<div class="login-social-link centered">
+							<p>or you can sign in via your social network</p>
 							<button class="btn btn-facebook" type="submit"><i class="fa fa-facebook"></i> Facebook</button>
 							<button class="btn btn-twitter" type="submit"><i class="fa fa-twitter"></i> Twitter</button>
 						</div>
@@ -84,9 +84,6 @@
 						</div>
 		        </div>
 			</form>
-		
-
-
 		          <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
 					<div class="modal-dialog">
 						<div class="modal-content">
@@ -107,20 +104,9 @@
 					</div>
 				</div>
 				
-
-
-
-
-
-
-
-		      </form>	  	
-	  	
 	  	</div>
 	  </div>
-
-
-
+</body>
 
      <!-- js placed at the end of the document so the pages load faster -->
      <script src="{%static 'bankapp/assets/js/jquery.js'%}"></script>
@@ -132,8 +118,10 @@
      <script>
          $.backstretch("{%static 'bankapp/img/bg-intro-mobile.svg'%}", {speed: 500});
      </script>
- 
-	<script>
+
+
+<script>
+
 	$(document).ready(function() {
 		$('#login-form').submit(function(event) {
 			event.preventDefault();
@@ -147,14 +135,15 @@
 					'password': password,
 					'csrfmiddlewaretoken': '{{ csrf_token }}'
 				},
-				success: function(data, status, xhr) {
-					if (xhr.status === 302) {
-						// Redirect the user to the home page
-						window.location.href = xhr.getResponseHeader('Location');
-					} else {
-						// Handle any other success cases
-						alert('Login successful!');
+				success: function(data) {
+					// 	
+					if (data.success) {
+						// Redirect the user to the home page or a specific URL
+						alert(data.msg);
 						window.location.href = '{% url "home" %}';
+					} else {
+						// Display the error message returned from the backend
+						alert(data.error);
 					}
 				},
 				error: function(xhr, status, error) {
@@ -164,10 +153,12 @@
 		});
 	});
 
-	</script>
 
- 
-   </body>
- </html>
+</script>
  
 
+
+</html>
+
+ 
+   
