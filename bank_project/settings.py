@@ -32,11 +32,16 @@ SECRET_KEY = "django-insecure-4q=xy_wyon)%z_mchs_iq7j8_4w3h4ka0auy0x+0&_pm)m3+lw
 DEBUG = True
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ALLOWED_HOSTS = ['*']
 =======
 ALLOWED_HOSTS = ["127.0.0.1", "localhost", "Alexdata.pythonanywhere.com"]
 >>>>>>> 7ee3f9e58fb2991b8393f1d18ac50d8490903438
 
+=======
+# ALLOWED_HOSTS = ["127.0.0.1", "localhost", "Alexdata.pythonanywhere.com"]
+ALLOWED_HOSTS = ['*']
+>>>>>>> ed6fa6410f4100e9dbd5109df2be8152b0aba38c
 
 # Application definition
 
@@ -84,20 +89,20 @@ WSGI_APPLICATION = "bank_project.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
-
-
-# # Replace it with your DATABASES.
 # DATABASES = {
-#     'default': dj_database_url.config(
-#         default="sqlite:///" + os.path.join(BASE_DIR, "db.sqlite3")
-#     )
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
 # }
+
+
+# Replace it with your DATABASES.
+DATABASES = {
+    'default': dj_database_url.config(
+        default="sqlite:///" + os.path.join(BASE_DIR, "db.sqlite3")
+    )
+}
 
 
 # Password validation
