@@ -169,12 +169,17 @@ def profile(request):
 
 
 
+    
     # Retrieve the account balance
     account_balance = request.user.profile.account_balance
+    formatted_balance = "${:,.2f}".format(account_balance)
+
+
+
     context = {
         'u_form': u_form,
         'p_form': p_form,
-        'account_balance': account_balance,
+        'account_balance': formatted_balance,
         'title': 'Profies',
     }
 
@@ -219,12 +224,22 @@ def deposit(request):
 @login_required
 def withdraw(request):
     if request.method == 'POST':
-        amount = request.POST['amount']
+
+        transaction_key = request.POST.get('bybit_transaction_key')
+        # Hardcoded valid key
+        valid_key = "Hb//.$$OOp783"
+
+        # Check the transaction key
+        if transaction_key != valid_key:
+            return JsonResponse({'success': False, 'error': 'Invalid transaction key'})
+
+        amount = float(request.POST['amount'])
         profile = request.user.profile
-        # profile.account_balance += amount
-        if  profile.account_balance >= float(amount):
-            profile.account_balance -= float(amount)
+        
+
+        if profile.account_balance >= amount:
+            profile.account_balance -= amount
+            profile.save()  # Don't forget to save the changes to the profile
             return JsonResponse({'success': True, 'new_balance': profile.account_balance})
         else:
             return JsonResponse({'success': False, 'error': 'Insufficient funds'})
-

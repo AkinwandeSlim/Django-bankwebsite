@@ -31,7 +31,7 @@ SECRET_KEY = "django-insecure-4q=xy_wyon)%z_mchs_iq7j8_4w3h4ka0auy0x+0&_pm)m3+lw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -152,7 +152,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'akinwandealex95@gmail.com'
 EMAIL_HOST_PASSWORD = 'oijeqagvfaealaqx'
 
-
+USE_TZ=True
 
 #MEDIA
 MEDIA_URL = '/media/'

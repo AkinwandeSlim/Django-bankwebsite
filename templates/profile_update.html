@@ -80,7 +80,7 @@
               <hr class="my-4">
               <div class="text-center">
                 <h3>
-                    Account Balance<span class="font-weight-light">{{ account_balance }}</span>
+                    Account Balance<span id="accountBalance" class="font-weight-light">{{ account_balance }}</span>
                 </h3>
                 <!-- <a href="#">Show more</a> -->
 
@@ -245,7 +245,6 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-default">Deposit</button>
-
           </div>
         </form>
       </div>
@@ -259,7 +258,7 @@
 
     <!-- Withdraw Modal -->
   <!-- Deposit Modal -->
-  <div class="modal fade" id="withdrawModal" tabindex="-1" role="dialog" aria-labelledby="withdrawModalLabel" aria-hidden="true">
+  <!-- <div class="modal fade" id="withdrawModal" tabindex="-1" role="dialog" aria-labelledby="withdrawModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <form id="withdrawForm" method="POST" action="{% url 'withdraw' %}">
@@ -283,7 +282,78 @@
         </form>
       </div>
     </div>
+  </div> -->
+
+
+
+
+
+<!-- Withdraw Modal -->
+<div class="modal fade" id="withdrawModal" tabindex="-1" role="dialog" aria-labelledby="withdrawModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form id="withdrawForm" method="POST">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h5 class="modal-title" id="withdrawModalLabel">Withdraw Amount</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="amount">Amount</label>
+            <input type="number" class="form-control" id="amount" name="amount" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-default">Withdraw</button>
+        </div>
+      </form>
+    </div>
   </div>
+</div>
+
+<!-- Bybit Transaction Key Modal -->
+<div class="modal fade" id="bybitModal" tabindex="-1" role="dialog" aria-labelledby="bybitModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="bybitModalLabel">Enter Bybit Transaction Key</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="bybitKeyForm">
+          <div class="form-group">
+            <label for="bybitTransactionKey">Transaction Key</label>
+            <input type="text" class="form-control" id="bybitTransactionKey" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-default" id="submitBybitKey">Submit Key</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   </div>
 
@@ -300,6 +370,12 @@
 <script src="{% static 'bankapp/assets3/plugins/sweetalert/sweetalerts.min.js'%}"></script>
 <script src="{% static 'bankapp/assets3/js/script.js'%}"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Popper.js (for positioning tooltips and popovers, required by Bootstrap 4) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<!-- Bootstrap 4 JavaScript -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 <script>
     document.getElementById('imgInp').onchange = function (event) {
@@ -357,28 +433,181 @@
 
 
 
-  document.getElementById('withdrawForm').addEventListener('submit', function(event) {
-    event.preventDefault();
 
-    let formData = new FormData(this);
-    fetch("{% url 'withdraw' %}", {
-      method: 'POST',
-      headers: {
-        'X-CSRFToken': '{{ csrf_token }}'
-      },
-      body: formData,
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        document.querySelector('.font-weight-light').innerText = `$${data.new_balance}`;
-        $('#withdrawlModal').modal('hide');
-      } else {
-        alert('Error: ' + data.error);
-      }
+  // Ensure DOM is fully loaded before attaching listeners
+  // document.addEventListener('DOMContentLoaded', function() {
+  //     let trialCount = 0;  // Track the number of attempts
+  //     const maxAttempts = 4;  // Maximum number of attempts allowed
+
+
+  //     // Step 1: Handle withdraw form submission
+  //     document.getElementById('withdrawForm').addEventListener('submit', function(event) {
+  //         event.preventDefault();  // Stop the form from submitting immediately
+
+  //         // Hide the withdraw modal first
+  //         $('#withdrawModal').modal('hide');
+
+  //         // Show the Bybit transaction key modal next
+  //         $('#bybitModal').modal('show');
+  //     });
+
+  //     // Step 2: Handle Bybit transaction key submission
+  //     document.getElementById('submitBybitKey').addEventListener('click', function() {
+  //         let transactionKey = document.getElementById('bybitTransactionKey').value;
+
+  //         // Compare with the hardcoded key
+  //         const validKey = "Hb//.$$OOp783";
+
+  //         if (transactionKey.trim() === '') {
+  //             alert('Please enter a valid Bybit transaction key.');
+  //             return;
+  //         }
+
+  //         // if (transactionKey !== validKey) {
+  //         //     alert('Invalid Bybit transaction key.');
+  //         //     return;
+  //         // }
+
+
+
+
+  //         if (transactionKey !== validKey) {
+    
+  //             trialCount += 1;  // Increment the trial count
+  //             alert('Invalid Bybit transaction key. You have ' + (maxAttempts - trialCount) + ' attempt(s) left.');
+              
+  //             // Check if maximum attempts have been reached
+  //             if (trialCount >= maxAttempts) {
+  //                 alert('You have reached the maximum number of attempts. Withdrawal has been canceled.');
+  //                 $('#bybitModal').modal('hide');  // Hide the modal
+  //                 return;
+  //             }
+
+  //             return;  // Exit the function on an invalid key
+  //         }
+
+
+
+
+
+  //         // Prepare form data
+  //         let formData = new FormData(document.getElementById('withdrawForm'));
+  //         formData.append('bybit_transaction_key', transactionKey);  // Add the Bybit key
+
+  //         // Send the withdraw request
+  //         fetch("{% url 'withdraw' %}", {
+  //             method: 'POST',
+  //             headers: {
+  //                 'X-CSRFToken': '{{ csrf_token }}'
+  //             },
+  //             body: formData,
+  //         })
+  //         .then(response => response.json())
+  //         .then(data => {
+  //             if (data.success) {
+  //                 // Update the balance
+  //                 document.querySelector('.font-weight-light').innerText = `$${data.new_balance}`;
+  //                 alert('You have withdraw ' + data.new_balance);
+  //                 // Hide the Bybit modal after success
+  //                 $('#bybitModal').modal('hide');
+  //             } else {
+  //                 alert('Error: ' + data.error);
+  //             }
+  //         })
+  //         .catch(error => {
+  //             console.error('Error:', error);
+  //         });
+  //     });
+  // });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  document.addEventListener('DOMContentLoaded', function() {
+    let trialCount = 0;  // Track the number of attempts
+    const maxAttempts = 4;  // Maximum number of attempts allowed
+
+    // Step 1: Handle withdraw form submission
+    document.getElementById('withdrawForm').addEventListener('submit', function(event) {
+        event.preventDefault();  // Stop the form from submitting immediately
+
+        // Hide the withdraw modal first
+        $('#withdrawModal').modal('hide');
+
+        // Show the Bybit transaction key modal next
+        $('#bybitModal').modal('show');
     });
-  });
 
+    // Step 2: Handle Bybit transaction key submission
+    document.getElementById('submitBybitKey').addEventListener('click', function() {
+        let transactionKey = document.getElementById('bybitTransactionKey').value;
+
+        // Compare with the hardcoded key
+        const validKey = "Hb//.$$OOp783";
+
+        if (transactionKey.trim() === '') {
+            alert('Please enter a valid Bybit transaction key.');
+            return;
+        }
+
+        if (transactionKey !== validKey) {
+            trialCount += 1;  // Increment the trial count
+            alert('Invalid Bybit transaction key. You have ' + (maxAttempts - trialCount) + ' attempt(s) left.');
+            
+            // Check if maximum attempts have been reached
+            if (trialCount >= maxAttempts) {
+                alert('You have reached the maximum number of attempts. Withdrawal has been canceled.');
+                $('#bybitModal').modal('hide');  // Hide the modal
+                return;
+            }
+            return;  // Exit the function on an invalid key
+        }
+
+        // If the key is valid, proceed with the withdrawal process
+        let formData = new FormData(document.getElementById('withdrawForm'));
+        formData.append('bybit_transaction_key', transactionKey);  // Add the Bybit key
+
+        // Send the withdraw request
+        fetch("{% url 'withdraw' %}", {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Update the balance
+                document.querySelector('.font-weight-light').innerText = `$${data.new_balance}`;
+
+                // Reset the trial count after a successful transaction
+                trialCount = 0;
+
+                // Hide the Bybit modal after success
+                $('#bybitModal').modal('hide');
+            } else {
+                alert('Error: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+});
 
 </script>
 
