@@ -14,20 +14,35 @@
             Take your financial life online. Your Standard Vault Remit Bank account will be a one-stop-shop
             for spending, saving, budgeting, investing, and much more.
         </p>
+<<<<<<< HEAD
 <!-- 
         <button class="btn-primary">Log in</button>
         <button class="btn-primary">Sign Up</button> -->
 
         <a href="{% url 'login' %}" class="btn-primary">Login</a>
         <a href="{% url 'signup' %}" class="btn-primary">Sign Up</a>
+=======
+
+
+
+        {%if not user.is_authenticated%}
+            <li><a href="{% url 'profile'%}">Profile</a></li>
+            <li><a href="{% url 'loans'%}">Loans</a></li>
+        {% endif %}
+
+
+>>>>>>> cb15602 (Getting Initial clean up push)
 
     </div>
     </section>
 
+<<<<<<< HEAD
 
 
 
 
 
 
+=======
+>>>>>>> cb15602 (Getting Initial clean up push)
 {% endblock content %}

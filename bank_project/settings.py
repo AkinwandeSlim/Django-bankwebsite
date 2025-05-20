@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+<<<<<<< HEAD
+=======
+import django_heroku
+>>>>>>> cb15602 (Getting Initial clean up push)
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -33,6 +37,7 @@ DEBUG = True
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 ALLOWED_HOSTS = ['*']
 =======
 ALLOWED_HOSTS = ["127.0.0.1", "localhost", "Alexdata.pythonanywhere.com"]
@@ -42,6 +47,11 @@ ALLOWED_HOSTS = ["127.0.0.1", "localhost", "Alexdata.pythonanywhere.com"]
 # ALLOWED_HOSTS = ["127.0.0.1", "localhost", "Alexdata.pythonanywhere.com"]
 ALLOWED_HOSTS = ['*']
 >>>>>>> ed6fa6410f4100e9dbd5109df2be8152b0aba38c
+=======
+
+# ALLOWED_HOSTS = ["127.0.0.1", "localhost", "Alexdata.pythonanywhere.com"]
+ALLOWED_HOSTS = ['*']
+>>>>>>> cb15602 (Getting Initial clean up push)
 
 # Application definition
 
@@ -168,15 +178,28 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 <<<<<<< HEAD
+<<<<<<< HEAD
 EMAIL_HOST_USER = 'akinwandealex95@gmail.com'
 EMAIL_HOST_PASSWORD = 'oijeqagvfaealaqx'
 =======
 EMAIL_HOST_USER = 'svrb.banks24@gmail.com'
 EMAIL_HOST_PASSWORD = 'jlowvftdbrzwxnxr'
 >>>>>>> 7ee3f9e58fb2991b8393f1d18ac50d8490903438
+=======
+EMAIL_HOST_USER = 'svrb.banks24@gmail.com'
+EMAIL_HOST_PASSWORD = 'jlowvftdbrzwxnxr'
+>>>>>>> cb15602 (Getting Initial clean up push)
 
 USE_TZ=True
 
 #MEDIA
 MEDIA_URL = '/media/'
+<<<<<<< HEAD
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+=======
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
+django_heroku.settings(locals())
+>>>>>>> cb15602 (Getting Initial clean up push)

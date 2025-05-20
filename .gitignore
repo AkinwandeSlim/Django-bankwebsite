@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.log
+
+# Django
+db.sqlite3
+/media/
+/staticfiles/
+/build/
+/local_settings.py
+
+# Env
+.env
+venv/
+ENV/
+env/
+*.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Render/Vercel
+vercel.json
+build_files.sh
